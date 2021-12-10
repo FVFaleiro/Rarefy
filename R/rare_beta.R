@@ -1,5 +1,5 @@
 
-rare_beta<-function(comm,dist_xy=NULL,method=c("whittaker","jaccard","bray","cody","fun_div"),random=99,fun_div=NULL,args=NULL,verbose=FALSE,spatial=FALSE) {
+rare_beta<-function(comm,dist_xy=NULL,method=c("whittaker","jaccard","bray","cody","fun_div"),random=99,fun_div=NULL,args=NULL,verbose=FALSE,spatial=FALSE, save_samples = TRUE) {
   
   method <- method[1]
   if(!method%in%c("whittaker","jaccard","sorensen","bray","cody","fun_div")) stop("Unavailable method")
@@ -206,7 +206,10 @@ rare_beta<-function(comm,dist_xy=NULL,method=c("whittaker","jaccard","bray","cod
   df<-data.frame(rare,IC_up,IC_low)
   colnames(df)<-c('Rarefaction','IC_up','IC_low')
   
-  return(df)
-  
-}
-
+  if (save_samples == TRUE) {
+    out <- list(df, r_fin)
+    return(out)
+  } else if (save_samples == FALSE) {
+      out <- df
+      return(out)
+    }}
